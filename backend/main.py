@@ -51,10 +51,16 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 # CORS configuration
+# CORS configuration
 origins = [
     "http://localhost:5173",
     "http://localhost:3000",
 ]
+
+# Add production frontend URL from env
+frontend_url = os.getenv("FRONTEND_URL")
+if frontend_url:
+    origins.append(frontend_url)
 
 app.add_middleware(
     CORSMiddleware,
