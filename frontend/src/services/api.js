@@ -1,4 +1,9 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+let API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
+// Force HTTPS in production to avoid redirect issues (307 vs 301/302)
+if (API_URL.includes("onrender.com") && API_URL.startsWith("http:")) {
+    API_URL = API_URL.replace("http:", "https:");
+}
 
 export async function uploadFiles(files) {
   const formData = new FormData();
