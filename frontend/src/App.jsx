@@ -110,12 +110,19 @@ export default function App() {
           const downloadUrl = getDownloadUrl(result.download_url);
           console.log("Download URL:", downloadUrl);
 
+          // Use fetch + blob to bypass redirect blockers and force download behavior
+          const fileReq = await fetch(downloadUrl);
+          if (!fileReq.ok) throw new Error("Failed to download file");
+          const blob = await fileReq.blob();
+          const blobUrl = window.URL.createObjectURL(blob);
+          
           const link = document.createElement('a');
-          link.href = downloadUrl;
+          link.href = blobUrl;
           link.setAttribute('download', 'docweave_merged.pdf');
           document.body.appendChild(link);
           link.click();
           link.remove();
+          window.URL.revokeObjectURL(blobUrl);
           
       } catch (err) {
           console.error("Processing failed", err);
