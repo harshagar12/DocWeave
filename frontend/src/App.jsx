@@ -106,9 +106,7 @@ export default function App() {
               rotation: p.rotation
           })), "docweave_merged");
           
-          console.log("Process result:", result);
           const downloadUrl = getDownloadUrl(result.download_url);
-          console.log("Download URL:", downloadUrl);
 
           // Use fetch + blob to bypass redirect blockers and force download behavior
           const fileReq = await fetch(downloadUrl);
