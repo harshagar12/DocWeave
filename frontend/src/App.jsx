@@ -106,8 +106,12 @@ export default function App() {
               rotation: p.rotation
           })), "docweave_merged");
           
+          console.log("Process result:", result);
+          const downloadUrl = getDownloadUrl(result.download_url);
+          console.log("Download URL:", downloadUrl);
+
           const link = document.createElement('a');
-          link.href = getDownloadUrl(result.download_url);
+          link.href = downloadUrl;
           link.setAttribute('download', 'docweave_merged.pdf');
           document.body.appendChild(link);
           link.click();
