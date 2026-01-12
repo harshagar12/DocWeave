@@ -5,6 +5,9 @@ if (API_URL.includes("onrender.com") && API_URL.startsWith("http:")) {
     API_URL = API_URL.replace("http:", "https:");
 }
 
+// Remove trailing slash if present to avoid double slashes in requests
+API_URL = API_URL.endsWith('/') ? API_URL.slice(0, -1) : API_URL;
+
 export async function uploadFiles(files) {
   const formData = new FormData();
   files.forEach(file => {
